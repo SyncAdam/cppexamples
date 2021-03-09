@@ -1,79 +1,34 @@
 #include <iostream>
+#include <vector>
 #include <stdexcept>
+#include <string>
 
 using namespace std;
 
-
-//
-//	-=Rethrowing example=-
-//
-
-
-void processpositive(int num){
-
-	cout << "Positive int processor initialized \n";
-	if(num>100){
-		cout << "The num is too large\n";
-		throw out_of_range("The number passed in is too large\n");
-	}
-	else if(num>=0){
-
-		cout << "The number passed in is positive\n"; 
-
-	}
-	else{
-
-		throw invalid_argument("The number passed in is negative\n");
-
-	}
-	
-
-}
-void dosomething(int num){
-
-	try{
-
-		processpositive(num);
-		cout << "dosomething can process the number\n";
-
-	}
-	catch (invalid_argument& error){
-
-		cout << "dosomething couldnt process the number\n";
-		throw; //rethrow
-
-	}
-	catch (out_of_range& error){
-
-		cout << "dosomething couldnt process the number, its out of range\n";
-		throw;
-
-	}
-
-}
-
-
 int main(){
 
+	vector<string> names(5);
 
-	int input;
+	names.at(0) = "Sandor";
+	names.at(1) = "Janos";
+	names.at(2) = "Gaspar";
+	names.at(3) = "Denes";
+	names.at(4) = "Boldizsar";
+
+	for (string name : names){
+
+		cout << name << endl;
+
+	}
+
 	try{
 
-		cout << "Enter a number\n";
-		cin >> input;
-		dosomething(input);
-		cout << "int main() function completed\n";
+		names.at(5) = "Johnny";
 
 	}
-	catch(invalid_argument& error){
+	catch(const out_of_range& err){
 
-		cout << "\tError in int main() function\n";
-		cout << error.what() << endl;
-
-	}
-	catch(out_of_range& error){
-
-		cout << error.what() << endl;
+		cout << err.what() << endl;
 
 	}
 
